@@ -1,3 +1,4 @@
+
 // Header Title Animation + BG
 window.addEventListener('DOMContentLoaded', () => {
   // Header gradient background reveal

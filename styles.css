@@ -693,6 +693,97 @@ input:focus, textarea:focus {
   padding: 2.5px;
   box-shadow: 0 2px 10px #1a4cae13;
 }
+/* Section spacing */
+.blog-section {
+  padding: 4rem 0;
+}
+
+/* Blog card positioned under “Blog” and left-aligned */
+.blog-card {
+  position: relative;
+  width: 60%;            /* adjust to taste */
+  margin: 1.5rem 0 0 0;  /* top spacing, left-aligned */
+  padding: 2rem;
+  border-radius: 12px;
+  background: var(--color-bg);
+  overflow: hidden;
+
+  /* ensure all text inside is left-aligned */
+  text-align: left;
+}
+
+/* Content wrapper */
+.blog-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animated gradient border */
+.blog-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    var(--color-accent),
+    var(--color-accent-2),
+    var(--color-accent)
+  );
+  animation: rotateBorder 4s linear infinite;
+  z-index: 0;
+}
+
+/* Inner layer so the border shows around the edges only */
+.blog-card::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: var(--color-bg);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* Rotation keyframes */
+@keyframes rotateBorder {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Typography inside the card */
+.blog-content h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+  color: var(--color-accent);
+}
+
+.blog-content p {
+  /* Taille et graisse plus légères pour une élégance discrète */
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: normal;
+
+  /* Couleur légèrement plus claire que le texte principal */
+  color: var(--color-text-muted, #bbbbbb);
+
+  /* Plus d’interlignage pour aérer le paragraphe */
+  line-height: 1.8;
+
+  /* Espacement fin entre les lettres pour une touche premium */
+  letter-spacing: 0.5px;
+
+  /* Empêcher le texte d’être trop large */
+  max-width: 90%;
+
+  /* Pas de marge superflue */
+  margin: 0;
+}
+
 
 /* Footer */
 footer {
