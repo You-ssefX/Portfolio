@@ -2,36 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Youssef | Cybersecurity & Web/App Developer</title>
+  <title data-i18n="title">Youssef | Cybersecurity & Web/App Developer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Import Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 
-  <!-- Main CSS -->
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@latest/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector@latest/dist/umd/i18nextBrowserLanguageDetector.min.js"></script>
   <script type="importmap">
     {
       "imports": {}
     }
   </script>
-  <style>
-    /* Additional styles for animated role text */
-    .role-text {
-      font-weight: 600;
-      color: var(--color-accent);
-      font-size: 1.4rem;
-      min-height: 1.8em; /* reserve space to avoid layout shift */
-      opacity: 0;
-      transition: opacity 0.6s ease-in-out;
-    }
-    .role-text.visible {
-      opacity: 1;
-    }
-  </style>
 </head>
 <body>
-  <!-- Pro animated background squares (decorative) -->
+  <div id="language" class="lang-switcher">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn"        data-lang="fr">FR</button>
+  </div>
+
   <div class="bg-squares" aria-hidden="true">
     <div class="bg-square sq1"></div>
     <div class="bg-square sq2"></div>
@@ -42,49 +32,46 @@
     <div class="bg-square sq7"></div>
     <div class="bg-square sq8"></div>
   </div>
+
   <header>
     <div class="header-bg"></div>
     <div class="container">
       <h1 class="site-title">
-        <span class="title-accent">&lt;/&gt;</span> Youssef
+        <span class="title-accent">&lt;/&gt;</span> <span data-i18n="siteName">Youssef</span>
       </h1>
       <nav>
         <ul>
-          <li><a href="#about">About Me</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#blog">Blogs</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#about" data-i18n="nav.about">About Me</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Blogs</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
         <div class="nav-underline"></div>
       </nav>
     </div>
-    
   </header>
 
   <section id="hero">
     <div class="container">
       <img src="Light Yagami Icon.jpeg" alt="Profile picture of Youssef" class="profile-img" />
       <div class="hero-text">
-        <h2>Hi, I'm Youssef!</h2>
-        <p>
-          <span class="role-text" id="roleText"></span>
-          <br />
-          <span style="display:block; margin-top: 8px;">
-            I design, secure, and build digital experiences<br />
-            that are robust, modern, and visually appealing.<br />
+        <h2 data-i18n="hero.greeting">Hi, I'm Youssef!</h2>
+        <p><span class="role-text" id="roleText"></span></p>
+        <p style="display:block; margin-top: 8px;">
+            <span data-i18n="hero.line1">I design, secure, and build digital experiences</span><br />
+            <span data-i18n="hero.line2">that are robust, modern, and visually appealing.</span><br />
             <span style="color:var(--color-accent-2);font-weight:600;">
-              My passion is creating solutions<br /> that are both safe <em>and</em> stunning.
+              <span data-i18n="hero.line3">My passion is creating solutions</span><br />
+              <span data-i18n="hero.line4">that are both safe <em>and</em> stunning.</span>
             </span>
-          </span>
         </p>
-        <a href="#projects" class="btn">See My Work</a>
+        <a href="#projects" class="btn" data-i18n="hero.cta">See My Work</a>
       </div>
     </div>
   </section>
 
   <section id="about">
-    <!-- Pro style blurred color bubbles behind -->
     <div class="about-blur-bubble about-blur1"></div>
     <div class="about-blur-bubble about-blur2"></div>
     <div class="about-blur-bubble about-blur3"></div>
@@ -92,21 +79,21 @@
     <div class="container">
       <div class="about-card">
         <span class="about-encrypt-icon">🔒</span>
-        <h2>About Me</h2>
-        <div class="about-intro">
+        <h2 data-i18n="about.title">About Me</h2>
+        <div class="about-intro" data-i18n="about.intro">
           Cybersecurity Specialist &amp; Full-stack Web/App Developer
         </div>
         <div class="about-details">
-          My mission: <span style="color:var(--color-accent);font-weight:600;">building digital experiences that are both robust and beautiful</span>.
+          <span data-i18n="about.mission">My mission:</span> <span style="color:var(--color-accent);font-weight:600;"><span data-i18n="about.missionHighlight">building digital experiences that are both robust and beautiful</span></span>.
           I'm devoted to blending <strong>security</strong>, <strong>performance</strong>, and <strong>aesthetics</strong>—from advanced penetration testing, to seamless UI, to scalable back-end architectures.
         </div>
         <ul class="about-bullets">
-          <li>Defensive Security &amp; Ethical Hacking</li>
-          <li>Modern Web, Mobile, &amp; Cloud Apps</li>
-          <li>System Hardening &amp; Secure DevOps</li>
-          <li>Passionate about user experience</li>
+          <li data-i18n="about.bullet1">Defensive Security &amp; Ethical Hacking</li>
+          <li data-i18n="about.bullet2">Modern Web, Mobile, &amp; Cloud Apps</li>
+          <li data-i18n="about.bullet3">System Hardening &amp; Secure DevOps</li>
+          <li data-i18n="about.bullet4">Passionate about user experience</li>
         </ul>
-        <div class="about-details" style="margin-top: 12px;">
+        <div class="about-details" style="margin-top: 12px;" data-i18n="about.offtime">
           Off the clock, I love challenging puzzles and exploring the latest tech trends.
         </div>
       </div>
@@ -115,47 +102,47 @@
 
   <section id="skills">
     <div class="container">
-      <h2>Skills</h2>
+      <h2 data-i18n="skills.title">Skills</h2>
       <ul class="skills-list">
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML5 logo" title="HTML5" />
-          <span>HTML5</span>
+          <span data-i18n="skills.html">HTML5</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS3 logo" title="CSS3" />
-          <span>CSS3</span>
+          <span data-i18n="skills.css">CSS3</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" alt="JavaScript logo" title="JavaScript" />
-          <span>JavaScript</span>
+          <span data-i18n="skills.js">JavaScript</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP logo" title="PHP" />
-          <span>PHP</span>
+          <span data-i18n="skills.php">PHP</span>
         </li>
         <li>
           <img src="Mysql.png" alt="MySQL logo" title="MySQL" />
-          <span>MySQL</span>
+          <span data-i18n="skills.mysql">MySQL</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo" title="React.js" />
-          <span>React.js</span>
+          <span data-i18n="skills.react">React.js</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" alt="Node.js logo" title="Node.js" />
-          <span>Node.js</span>
+          <span data-i18n="skills.node">Node.js</span>
         </li>
         <li>
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg" alt="C++ logo" title="C++" />
-          <span>C++</span>
+          <span data-i18n="skills.cpp">C++</span>
         </li>
         <li>
           <img src="python.png" alt="Python logo" title="Python" />
-          <span>Python</span>
+          <span data-i18n="skills.python">Python</span>
         </li>
         <li>
           <img src="linux.png" alt="Linux logo" title="Linux" />
-          <span>Bash-Scripting</span>
+          <span data-i18n="skills.bash">Bash-Scripting</span>
         </li>
       </ul>
     </div>
@@ -163,47 +150,44 @@
 
   <section id="projects">
     <div class="container">
-      <h2>Projects</h2>
+      <h2 data-i18n="projects.title">Projects</h2>
       <div class="projects-grid" id="projectsGrid">
-        <!-- Projects injected by JS -->
+        </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="container blog-section">
+      <h2 data-i18n="blog.title">Blog</h2>
+      <div class="blog-card">
+        <div class="blog-content">
+          <h3 data-i18n="blog.comingSoon">Coming Soon⏳</h3>
+          <p data-i18n="blog.excerpt">
+            Articles on cybersecurity, mobile apps and web development
+            will be published here soon.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-<!-- Blog -->
-<section id="blog">
-  <div class="container blog-section">
-    <h2>Blog</h2>
-
-    <div class="blog-card">
-      <div class="blog-content">
-        <h3>Coming Soon</h3>
-        <p>
-          Articles on cybersecurity, mobile apps and web development
-          will be published here soon.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
   <section id="contact">
     <div class="container">
-      <h2>Contact</h2>
+      <h2 data-i18n="contact.title">Contact</h2>
       <form id="contactForm">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name" data-i18n="contact.name">Name</label>
           <input type="text" id="name" name="name" required />
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email" data-i18n="contact.email">Email</label>
           <input type="email" id="email" name="email" required />
         </div>
         <div class="form-group">
-          <label for="message">Message</label>
+          <label for="message" data-i18n="contact.message">Message</label>
           <textarea id="message" name="message" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn">Send</button>
+        <button type="submit" class="btn" data-i18n="contact.send">Send</button>
         <div id="formMsg"></div>
       </form>
     </div>
@@ -211,7 +195,7 @@
 
   <footer>
     <div class="container">
-      <p>© 2025 Youssef Tazi — All rights reserved.</p>
+      <p><span data-i18n="footer.copyright">© 2025</span> Youssef Tazi — <span data-i18n="footer.rights">All rights reserved.</span></p>
     </div>
   </footer>
 

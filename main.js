@@ -1,4 +1,135 @@
+// ── LANGUAGE INITIALIZATION ──────────────────────────────────
 
+// Insert this at the very top, before any DOMContentLoaded listeners:
+
+// Load i18next and detector (make sure you included the two <script> tags in HTML head)
+i18next
+  .use(i18nextBrowserLanguageDetector)
+  .init({
+    resources: {
+      en: {
+        translation: {
+          "title":           "Youssef | Cybersecurity & Web/App Developer",
+          "siteName":        "Youssef",
+          "nav.about":       "About Me",
+          "nav.skills":      "Skills",
+          "nav.projects":    "Projects",
+          "nav.blog":        "Blogs",
+          "nav.contact":     "Contact",
+          "hero.greeting":   "Hi, I'm Youssef!",
+          "hero.line1":      "I design, secure, and build digital experiences",
+          "hero.line2":      "that are robust, modern, and visually appealing.",
+          "hero.line3":      "My passion is creating solutions",
+          "hero.line4":      "that are both safe and stunning.",
+          "hero.cta":        "See My Work",
+          "about.title":     "About Me",
+          "about.intro":     "Cybersecurity Specialist & Full-stack Web/App Developer",
+          "about.mission":   "My mission:",
+          "about.missionHighlight": "building digital experiences that are both robust and beautiful",
+          "about.bullet1":   "Defensive Security & Ethical Hacking",
+          "about.bullet2":   "Modern Web, Mobile, & Cloud Apps",
+          "about.bullet3":   "System Hardening & Secure DevOps",
+          "about.bullet4":   "Passionate about user experience",
+          "about.offtime":   "Off the clock, I love challenging puzzles and exploring the latest tech trends.",
+          "skills.title":    "Skills",
+          "skills.html":     "HTML5",
+          "skills.css":      "CSS3",
+          "skills.js":       "JavaScript",
+          "skills.php":      "PHP",
+          "skills.mysql":    "MySQL",
+          "skills.react":    "React.js",
+          "skills.node":     "Node.js",
+          "skills.cpp":      "C++",
+          "skills.python":   "Python",
+          "skills.bash":     "Bash-Scripting",
+          "projects.title":  "Projects",
+          "blog.title":      "Blog",
+          "blog.comingSoon": "Coming Soon⏳",
+          "blog.excerpt":    "Articles on cybersecurity, mobile apps and web development will be published here soon.",
+          "contact.title":   "Contact",
+          "contact.name":    "Name",
+          "contact.email":   "Email",
+          "contact.message": "Message",
+          "contact.send":    "Send",
+          "footer.copyright":"© 2025",
+          "footer.rights":   "All rights reserved."
+        }
+      },
+      fr: {
+        translation: {
+          "title":           "Youssef | Cybersécurité & Développement Web/App Full-stack",
+          "siteName":        "Youssef",
+          "nav.about":       "À propos",
+          "nav.skills":      "Compétences",
+          "nav.projects":    "Projets",
+          "nav.blog":        "Blog",
+          "nav.contact":     "Contact",
+          "hero.greeting":   "Salut, je suis Youssef !",
+          "hero.line1":      "Je conçois, sécurise et crée des expériences numériques",
+          "hero.line2":      "qui sont robustes, modernes et esthétiques.",
+          "hero.line3":      "Ma passion est de créer des solutions",
+          "hero.line4":      "à la fois sûres et élégantes.",
+          "hero.cta":        "Voir mes projets",
+          "about.title":     "À propos de moi",
+          "about.intro":     "Spécialiste en cybersécurité & Développeur Full-stack Web/App",
+          "about.mission":   "Ma mission :",
+          "about.missionHighlight": "créer des expériences numériques à la fois robustes et magnifiques",
+          "about.bullet1":   "Cybersécurité défensive & hacking éthique",
+          "about.bullet2":   "Web, mobile & applis cloud modernes",
+          "about.bullet3":   "Renforcement du système & DevOps sécurisé",
+          "about.bullet4":   "Passionné par l’expérience utilisateur",
+          "about.offtime":   "En dehors du travail, j’adore les casse-têtes et suivre les dernières tendances tech.",
+          "skills.title":    "Compétences",
+          "skills.html":     "HTML5",
+          "skills.css":      "CSS3",
+          "skills.js":       "JavaScript",
+          "skills.php":      "PHP",
+          "skills.mysql":    "MySQL",
+          "skills.react":    "React.js",
+          "skills.node":     "Node.js",
+          "skills.cpp":      "C++",
+          "skills.python":   "Python",
+          "skills.bash":     "Bash-Scripting",
+          "projects.title":  "Projets",
+          "blog.title":      "Blog",
+          "blog.comingSoon": "Bientôt⏳",
+          "blog.excerpt":    "Des articles sur la cybersécurité, applis mobiles et développement web arriveront bientôt.",
+          "contact.title":   "Contact",
+          "contact.name":    "Nom",
+          "contact.email":   "Email",
+          "contact.message": "Message",
+          "contact.send":    "Envoyer",
+          "footer.copyright":"© 2025",
+          "footer.rights":   "Tous droits réservés."
+        }
+      }
+    },
+    fallbackLng: 'en',
+    debug: false
+  }, () => {
+    // once initialized, replace all data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      el.textContent = i18next.t(el.getAttribute('data-i18n'));
+    });
+    document.title = i18next.t('title');
+
+    // wire up buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lng = btn.getAttribute('data-lang');
+        i18next.changeLanguage(lng, () => {
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            el.textContent = i18next.t(el.getAttribute('data-i18n'));
+          });
+          document.title = i18next.t('title');
+          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+  });
+
+// ── END LANGUAGE INITIALIZATION ────────────────────────────────
 // Header Title Animation + BG
 window.addEventListener('DOMContentLoaded', () => {
   // Header gradient background reveal
@@ -34,6 +165,7 @@ window.addEventListener('DOMContentLoaded', () => {
       siteTitle.classList.add('animate-title-in');
     }, 160);
   }
+
   // Animated underline for nav
   const nav = document.querySelector('nav');
   const navLinks = nav.querySelectorAll('ul li a');
@@ -74,6 +206,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
 // List of portfolio projects (customized)
 const projects = [
   {
@@ -84,9 +217,9 @@ const projects = [
   },
   {
     title: "Mobile App for Association",
-    image: "MobilApp.jpeg", 
+    image: "MobilApp.jpeg",
     description: "Developed a modern mobile application for a non-profit association, featuring member management, secure messaging, and event scheduling.",
-    link: "#" 
+    link: "#"
   }
 ];
 
@@ -156,18 +289,17 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       heroText.classList.add('animate-in');
     }, 140);
-    // Subtle glowing effect retained
+    // Subtle glowing effect will now repeat indefinitely
     heroText.animate([
       { boxShadow: "0 0 0px #3fa3fe44" },
-      { boxShadow: "0 2px 38px #3fa3fe44" },
+      { boxShadow: "0 2px 38px #3fa3fe44" }, // Peak glow
       { boxShadow: "0 0 0px #3fa3fe44" },
     ], {
       duration: 2800,
-      iterations: 2
+      iterations: Infinity // This was the change!
     });
   }
 });
-
 // ============== SECTION TRANSITION ON SCROLL ==============
 
 // Utility to check if element is in viewport
