@@ -1,22 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Youssef | Cybersecurity & Web/App Developer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Import Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <script type="importmap">
     {
       "imports": {}
     }
   </script>
+  <style>
+    /* Additional styles for animated role text */
+    .role-text {
+      font-weight: 600;
+      color: var(--color-accent);
+      font-size: 1.4rem;
+      min-height: 1.8em; /* reserve space to avoid layout shift */
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    .role-text.visible {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
+  <!-- Pro animated background squares (decorative) -->
+  <div class="bg-squares" aria-hidden="true">
+    <div class="bg-square sq1"></div>
+    <div class="bg-square sq2"></div>
+    <div class="bg-square sq3"></div>
+    <div class="bg-square sq4"></div>
+    <div class="bg-square sq5"></div>
+    <div class="bg-square sq6"></div>
+    <div class="bg-square sq7"></div>
+    <div class="bg-square sq8"></div>
+  </div>
   <header>
     <div class="header-bg"></div>
     <div class="container">
@@ -36,38 +61,53 @@
   </header>
 
   <section id="hero">
-    <div class="container" style="position:relative;">
-      <img src="Light Yagami Icon.jpeg" alt="Profile picture of Youssef" class="profile-img" loading="eager">
-
+    <div class="container">
+      <img src="Light Yagami Icon.jpeg" alt="Profile picture of Youssef" class="profile-img" />
       <div class="hero-text">
-        <div class="hero-headline">Cybersecurity Specialist • Full-Stack Developer</div>
         <h2>Hi, I'm Youssef!</h2>
         <p>
-          I design and secure digital experiences.<br>
-          Blending robust cybersecurity with modern, visually stunning web & app development.
+          <span class="role-text" id="roleText"></span>
+          <br />
+          <span style="display:block; margin-top: 8px;">
+            I design, secure, and build digital experiences<br />
+            that are robust, modern, and visually appealing.<br />
+            <span style="color:var(--color-accent-2);font-weight:600;">
+              My passion is creating solutions<br /> that are both safe <em>and</em> stunning.
+            </span>
+          </span>
         </p>
-        <ul class="hero-bullets">
-          <li>Penetration testing, system hardening & security by design</li>
-          <li>Beautiful, performant web & app interfaces</li>
-          <li>Efficient, scalable back-ends</li>
-        </ul>
         <a href="#projects" class="btn">See My Work</a>
       </div>
-      <!-- Subtle animated gradient elements -->
-      <div class="hero-floating-shape hero-floating-shape1"></div>
-      <div class="hero-floating-shape hero-floating-shape2"></div>
     </div>
   </section>
 
-
   <section id="about">
+    <!-- Pro style blurred color bubbles behind -->
+    <div class="about-blur-bubble about-blur1"></div>
+    <div class="about-blur-bubble about-blur2"></div>
+    <div class="about-blur-bubble about-blur3"></div>
+    <div class="about-blur-bubble about-blur4"></div>
     <div class="container">
-      <h2>About Me</h2>
-      <p>
-        As a cybersecurity expert and versatile developer, I specialize in crafting secure and high-performance solutions for the web and mobile. My expertise ranges from penetration testing and system hardening to elegant front-end design and scalable back-ends.<br>
-        My mission: keep things safe, beautiful, and blazing fast.<br>
-        Outside the digital world, I enjoy learning, hacking puzzles, and exploring tech trends.
-      </p>
+      <div class="about-card">
+        <span class="about-encrypt-icon">🔒</span>
+        <h2>About Me</h2>
+        <div class="about-intro">
+          Cybersecurity Specialist &amp; Full-stack Web/App Developer
+        </div>
+        <div class="about-details">
+          My mission: <span style="color:var(--color-accent);font-weight:600;">building digital experiences that are both robust and beautiful</span>.
+          I'm devoted to blending <strong>security</strong>, <strong>performance</strong>, and <strong>aesthetics</strong>—from advanced penetration testing, to seamless UI, to scalable back-end architectures.
+        </div>
+        <ul class="about-bullets">
+          <li>Defensive Security &amp; Ethical Hacking</li>
+          <li>Modern Web, Mobile, &amp; Cloud Apps</li>
+          <li>System Hardening &amp; Secure DevOps</li>
+          <li>Passionate about user experience</li>
+        </ul>
+        <div class="about-details" style="margin-top: 12px;">
+          Off the clock, I love challenging puzzles and exploring the latest tech trends.
+        </div>
+      </div>
     </div>
   </section>
 
@@ -76,44 +116,44 @@
       <h2>Skills</h2>
       <ul class="skills-list">
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML5 logo" title="HTML5">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML5 logo" title="HTML5" />
           <span>HTML5</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS3 logo" title="CSS3">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS3 logo" title="CSS3" />
           <span>CSS3</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" alt="JavaScript logo" title="JavaScript">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" alt="JavaScript logo" title="JavaScript" />
           <span>JavaScript</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP logo" title="PHP">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP logo" title="PHP" />
           <span>PHP</span>
         </li>
         <li>
-          <img src="Mysql.png" alt="MySQL logo" title="MySQL">
+          <img src="Mysql.png" alt="MySQL logo" title="MySQL" />
           <span>MySQL</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo" title="React.js">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo" title="React.js" />
           <span>React.js</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" alt="Node.js logo" title="Node.js">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" alt="Node.js logo" title="Node.js" />
           <span>Node.js</span>
         </li>
         <li>
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg" alt="C++ logo" title="C++">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg" alt="C++ logo" title="C++" />
           <span>C++</span>
         </li>
         <li>
-          <img src="python.png" alt="Python logo" title="Python">
+          <img src="python.png" alt="Python logo" title="Python" />
           <span>Python</span>
         </li>
         <li>
-          <img src="linux.png" alt="Linux logo" title="Linux">
-          <span>Bash-Scripting  </span>
+          <img src="linux.png" alt="Linux logo" title="Linux" />
+          <span>Bash-Scripting</span>
         </li>
       </ul>
     </div>
@@ -131,36 +171,31 @@
   <section id="contact">
     <div class="container">
       <h2>Contact</h2>
-      <form id="contactForm" action="/upload" method="POST" enctype="multipart/form-data">
+      <form id="contactForm">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required/>
+          <input type="text" id="name" name="name" required />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required/>
+          <input type="email" id="email" name="email" required />
         </div>
         <div class="form-group">
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="4" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="myFile">Choose a file</label>
-          <input type="file" id="myFile" name="myFile" class="file-input"/>
         </div>
         <button type="submit" class="btn">Send</button>
         <div id="formMsg"></div>
       </form>
     </div>
   </section>
-  
 
   <footer>
     <div class="container">
-      <p>© 2025 Youssef. All rights reserved.</p>
+      <p>© 2025 Youssef Tazi — All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="main.js" type="module"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
