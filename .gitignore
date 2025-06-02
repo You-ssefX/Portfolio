@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Backend project folder (if it's a subdirectory of the frontend repo)
+backend/
+
+# You might also want to ignore other IDE files or build artifacts if they appear
+.vscode/
+*.log
+npm-debug.log*
+.DS_Store # Mac specific
