@@ -1,6 +1,13 @@
 // main.js - This script handles all client-side interactions and dynamic content updates for the portfolio website.
 
 // =========================================================================
+//                           BACKEND URL CONFIGURATION
+// =========================================================================
+// MODIFIED: Added backend URL constant
+const BACKEND_URL = 'https://portfolio-backend-rc3w.onrender.com';
+// END MODIFICATION
+
+// =========================================================================
 //                           LANGUAGE SWITCHER DATA
 // =========================================================================
 
@@ -281,6 +288,7 @@ const projectsGrid = document.getElementById('projectsGrid');
 // 'renderProjects' function: Dynamically creates and injects project cards into the DOM.
 // Supports language switching for descriptions and link text.
 function renderProjects(lang = 'en') {
+  if (!projectsGrid) return; // Guard clause if projectsGrid is not found
   projectsGrid.innerHTML = ""; // Clear existing projects to prevent duplicates on language change
   projects.forEach((project, idx) => { // Loop through each project in the 'projects' array
     const card = document.createElement('div'); // Create a new div element for the project card
@@ -335,11 +343,15 @@ function renderProjects(lang = 'en') {
   });
 }
 // Initial call to render projects when the script loads.
-renderProjects(currentLang);
+if (projectsGrid) { // Check if projectsGrid exists before rendering
+    renderProjects(currentLang);
+}
+
 
 // 'observeLangForProjects' function: Periodically checks if the language has changed
 // and re-renders projects to update their descriptions.
 function observeLangForProjects() {
+  if (!projectsGrid) return; // Guard clause if projectsGrid is not found
   let memLang = currentLang; // Store the current language
   // Use setInterval to periodically check for language changes.
   // A more efficient approach for production might involve a custom event listener
@@ -351,7 +363,10 @@ function observeLangForProjects() {
     }
   }, 400); // Check every 400 milliseconds
 }
-observeLangForProjects(); // Start observing language changes
+if (projectsGrid) { // Check if projectsGrid exists before observing
+    observeLangForProjects(); // Start observing language changes
+}
+
 
 // =========================================================================
 //                           CONTACT FORM LOGIC (CRITICAL FOR YOUR EMAIL FUNCTIONALITY)
@@ -360,7 +375,7 @@ observeLangForProjects(); // Start observing language changes
 // Get references to the form elements
 const form = document.getElementById('contactForm'); // The contact form itself
 const formMsg = document.getElementById('formMsg'); // Element to display success/error messages
-const submitButton = form.querySelector('button[type="submit"]'); // The form's submit button
+const submitButton = form ? form.querySelector('button[type="submit"]') : null; // The form's submit button
 
 // 'csrfToken': Variable to store the CSRF token fetched from the backend.
 // This token is essential for protecting against Cross-Site Request Forgery attacks.
@@ -369,21 +384,25 @@ let csrfToken = null;
 // 'fetchCsrfToken' function: Asynchronously fetches the CSRF token from the backend.
 async function fetchCsrfToken() {
   try {
-    const response = await fetch('/api/csrf-token'); // Send GET request to the CSRF token endpoint
+    // MODIFIED: Prepended BACKEND_URL
+    const response = await fetch(`${BACKEND_URL}/api/csrf-token`); // Send GET request to the CSRF token endpoint
+    // END MODIFICATION
     if (!response.ok) { // If the HTTP response status is not 2xx (e.g., 404, 500)
-      throw new Error('Failed to fetch CSRF token.'); // Throw an error
+      throw new Error(`Failed to fetch CSRF token. Status: ${response.status}`); // Throw an error
     }
     const data = await response.json(); // Parse the JSON response
     return data.csrfToken; // Return the token
   } catch (error) {
     console.error('CSRF Token fetch error:', error); // Log the error to the console
     // Display a user-friendly error message on the form
-    formMsg.textContent = {
-      en: "Could not initialize form. Please try again.",
-      fr: "Impossible d'initialiser le formulaire. Veuillez réessayer.",
-      es: "No se pudo inicializar el formulario. Inténtalo de nuevo."
-    }[currentLang];
-    formMsg.style.color = 'var(--color-error)'; // Set message color to red/error
+    if (formMsg) {
+        formMsg.textContent = {
+          en: "Could not initialize form. Please try again.",
+          fr: "Impossible d'initialiser le formulaire. Veuillez réessayer.",
+          es: "No se pudo inicializar el formulario. Inténtalo de nuevo."
+        }[currentLang];
+        formMsg.style.color = 'var(--color-error)'; // Set message color to red/error
+    }
     return null; // Return null if token fetch failed
   }
 }
@@ -391,113 +410,135 @@ async function fetchCsrfToken() {
 // Event Listener: Fetch CSRF token when the page loads (DOMContentLoaded).
 // This ensures the form is ready for submission as soon as possible.
 window.addEventListener('DOMContentLoaded', async () => {
-  csrfToken = await fetchCsrfToken(); // Attempt to fetch the token
-  if (csrfToken) {
-    console.log('CSRF Token fetched successfully.'); // Confirm token fetched
-  } else {
-    // If token fetch fails, disable the submit button to prevent form submission errors
-    submitButton.disabled = true;
+  if (form && submitButton) { // Only proceed if form and button exist
+    csrfToken = await fetchCsrfToken(); // Attempt to fetch the token
+    if (csrfToken) {
+      console.log('CSRF Token fetched successfully.'); // Confirm token fetched
+    } else {
+      // If token fetch fails, disable the submit button to prevent form submission errors
+      submitButton.disabled = true;
+      if (formMsg) {
+        formMsg.textContent = {
+          en: "Form initialization failed. Please refresh.",
+          fr: "L'initialisation du formulaire a échoué. Veuillez rafraîchir.",
+          es: "Falló la inicialización del formulario. Por favor, actualiza."
+        }[currentLang];
+        formMsg.style.color = 'var(--color-error)';
+      }
+    }
   }
 });
 
 // Event Listener: Re-fetch CSRF token if the form receives focus after a long time.
 // This is a safeguard against expired tokens, especially if the user leaves the page open for a long period.
-form.addEventListener('focusin', async () => {
-  if (!csrfToken) { // Only re-fetch if a token is not currently available
-    csrfToken = await fetchCsrfToken(); // Attempt to fetch
-    if (csrfToken) {
-      submitButton.disabled = false; // Re-enable button if token is fetched
-    }
-  }
-}, { once: true }); // '{ once: true }' means this listener will only trigger once on the first focusin event
+if (form && submitButton) {
+    form.addEventListener('focusin', async () => {
+      if (!csrfToken) { // Only re-fetch if a token is not currently available
+        csrfToken = await fetchCsrfToken(); // Attempt to fetch
+        if (csrfToken) {
+          submitButton.disabled = false; // Re-enable button if token is fetched
+        }
+      }
+    }, { once: true }); // '{ once: true }' means this listener will only trigger once on the first focusin event
+}
+
 
 // Event Listener: Handles the form submission process.
-form.addEventListener('submit', async e => {
-  e.preventDefault(); // Prevent the browser's default form submission (which would cause a page reload)
+if (form && submitButton && formMsg) { // Ensure all elements exist before adding listener
+  form.addEventListener('submit', async e => {
+    e.preventDefault(); // Prevent the browser's default form submission (which would cause a page reload)
 
-  // Disable the submit button and show a loading message
-  submitButton.disabled = true;
-  submitButton.textContent = {
-    en: "Sending...",
-    fr: "Envoi...",
-    es: "Enviando..."
-  }[currentLang];
-  formMsg.textContent = ''; // Clear any previous success/error messages
-
-  // Critical: Check if CSRF token is available before attempting submission.
-  if (!csrfToken) {
-    formMsg.textContent = {
-      en: "Form not ready. Please refresh the page.",
-      fr: "Formulaire non prêt. Veuillez rafraîchir la page.",
-      es: "Formulario no listo. Actualiza la página."
+    // Disable the submit button and show a loading message
+    submitButton.disabled = true;
+    submitButton.textContent = {
+      en: "Sending...",
+      fr: "Envoi...",
+      es: "Enviando..."
     }[currentLang];
-    formMsg.style.color = 'var(--color-error)';
-    submitButton.disabled = false; // Re-enable button
-    submitButton.textContent = translations[currentLang]['contact.submit']; // Restore original text
-    return; // Stop the submission process
-  }
+    formMsg.textContent = ''; // Clear any previous success/error messages
 
-  // Get form data and convert it to a plain JavaScript object.
-  const formData = new FormData(form); // Creates a FormData object from the form
-  const data = Object.fromEntries(formData.entries()); // Converts FormData entries to a plain object { name: "...", email: "...", message: "..." }
-
-  // Important Security Step: Add the CSRF token to the data payload.
-  // The backend will validate this token against the one stored in the user's session.
-  data._csrf = csrfToken;
-
-  try {
-    const response = await fetch('/api/contact', { // Send a POST request to the contact API endpoint
-      method: 'POST', // HTTP method
-      headers: {
-        'Content-Type': 'application/json', // Tell the server we're sending JSON
-      },
-      credentials: 'include', // Important: Ensures cookies (which hold the CSRF token) are sent with the request
-      body: JSON.stringify(data), // Convert the JavaScript object to a JSON string for the request body
-    });
-
-    const result = await response.json(); // Parse the JSON response from the server
-
-    if (response.ok) { // If the HTTP response status is 2xx (e.g., 200 OK)
-      // Display success message
+    // Critical: Check if CSRF token is available before attempting submission.
+    if (!csrfToken) {
       formMsg.textContent = {
-        en: "Thank you for your message! I'll get back to you soon.",
-        fr: "Merci pour votre message ! Je reviendrai vers vous bientôt.",
-        es: "¡Gracias por tu mensaje! Me pondré en contacto pronto."
-      }[currentLang];
-      formMsg.style.color = 'var(--color-success)'; // Set message color to green/success
-      form.reset(); // Clear the form fields after successful submission
-      // Re-fetch a new CSRF token for the next submission to prevent re-use attacks.
-      csrfToken = await fetchCsrfToken();
-    } else {
-      // If the server responded with an error status (e.g., 400, 403, 500)
-      // Display the error message provided by the server, or a generic one if not available.
-      formMsg.textContent = result.error || {
-        en: "Failed to send message. Please try again later.",
-        fr: "Échec de l'envoi du message. Veuillez réessayer plus tard.",
-        es: "No se pudo enviar el mensaje. Inténtalo de nuevo más tarde."
+        en: "Form not ready. Please refresh the page.",
+        fr: "Formulaire non prêt. Veuillez rafraîchir la page.",
+        es: "Formulario no listo. Actualiza la página."
       }[currentLang];
       formMsg.style.color = 'var(--color-error)';
+      submitButton.disabled = false; // Re-enable button
+      submitButton.textContent = translations[currentLang]['contact.submit']; // Restore original text
+      return; // Stop the submission process
     }
-  } catch (error) {
-    // This 'catch' block handles network errors or other unexpected issues during the fetch operation.
-    console.error('Contact form submission error:', error);
-    formMsg.textContent = {
-      en: "An unexpected error occurred. Please try again later.",
-      fr: "Une erreur inattendue est survenue. Veuillez réessayer plus tard.",
-      es: "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
-    }[currentLang];
-    formMsg.style.color = 'var(--color-error)';
-  } finally {
-    // This 'finally' block always executes, regardless of success or failure.
-    submitButton.disabled = false; // Re-enable the submit button
-    submitButton.textContent = translations[currentLang]['contact.submit']; // Restore original button text
-    // Clear the message after a few seconds
-    setTimeout(() => {
-      formMsg.textContent = ''; // Clear message
-      formMsg.style.color = ''; // Reset color
-    }, 5000); // Message disappears after 5 seconds
-  }
-});
+
+    // Get form data and convert it to a plain JavaScript object.
+    const formData = new FormData(form); // Creates a FormData object from the form
+    const data = Object.fromEntries(formData.entries()); // Converts FormData entries to a plain object { name: "...", email: "...", message: "..." }
+
+    // Important Security Step: Add the CSRF token to the data payload.
+    // The backend will validate this token against the one stored in the user's session.
+    data._csrf = csrfToken;
+
+    try {
+      // MODIFIED: Prepended BACKEND_URL
+      const response = await fetch(`${BACKEND_URL}/api/contact`, { // Send a POST request to the contact API endpoint
+      // END MODIFICATION
+        method: 'POST', // HTTP method
+        headers: {
+          'Content-Type': 'application/json', // Tell the server we're sending JSON
+        },
+        credentials: 'include', // Important: Ensures cookies (which hold the CSRF token) are sent with the request
+        body: JSON.stringify(data), // Convert the JavaScript object to a JSON string for the request body
+      });
+
+      const result = await response.json(); // Parse the JSON response from the server
+
+      if (response.ok) { // If the HTTP response status is 2xx (e.g., 200 OK)
+        // Display success message
+        formMsg.textContent = {
+          en: "Thank you for your message! I'll get back to you soon.",
+          fr: "Merci pour votre message ! Je reviendrai vers vous bientôt.",
+          es: "¡Gracias por tu mensaje! Me pondré en contacto pronto."
+        }[currentLang];
+        formMsg.style.color = 'var(--color-success)'; // Set message color to green/success
+        form.reset(); // Clear the form fields after successful submission
+        // Re-fetch a new CSRF token for the next submission to prevent re-use attacks.
+        csrfToken = await fetchCsrfToken();
+        if (!csrfToken && submitButton) submitButton.disabled = true; // Disable if new token fetch fails
+      } else {
+        // If the server responded with an error status (e.g., 400, 403, 500)
+        // Display the error message provided by the server, or a generic one if not available.
+        formMsg.textContent = result.error || {
+          en: "Failed to send message. Please try again later.",
+          fr: "Échec de l'envoi du message. Veuillez réessayer plus tard.",
+          es: "No se pudo enviar el mensaje. Inténtalo de nuevo más tarde."
+        }[currentLang];
+        formMsg.style.color = 'var(--color-error)';
+      }
+    } catch (error) {
+      // This 'catch' block handles network errors or other unexpected issues during the fetch operation.
+      console.error('Contact form submission error:', error);
+      formMsg.textContent = {
+        en: "An unexpected error occurred. Please try again later.",
+        fr: "Une erreur inattendue est survenue. Veuillez réessayer plus tard.",
+        es: "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
+      }[currentLang];
+      formMsg.style.color = 'var(--color-error)';
+    } finally {
+      // This 'finally' block always executes, regardless of success or failure.
+      if (submitButton) { // Check if submitButton exists
+          submitButton.disabled = !csrfToken; // Disable button if no CSRF token
+          submitButton.textContent = translations[currentLang]['contact.submit']; // Restore original button text
+      }
+      // Clear the message after a few seconds
+      setTimeout(() => {
+        if(formMsg) { // Check if formMsg exists
+            formMsg.textContent = ''; // Clear message
+            formMsg.style.color = ''; // Reset color
+        }
+      }, 5000); // Message disappears after 5 seconds
+    }
+  });
+}
 // --- END CONTACT FORM MODIFICATION ---
 
 // =========================================================================
@@ -508,9 +549,13 @@ form.addEventListener('submit', async e => {
 document.querySelectorAll('nav a[href^="#"]').forEach(anchor => { // Selects all nav links whose href starts with '#'
   anchor.addEventListener('click', function(e) {
     e.preventDefault(); // Prevent default jump behavior
-    const target = document.querySelector(this.getAttribute('href')); // Get the target section element
-    if(target) {
-      target.scrollIntoView({ behavior: 'smooth' }); // Smoothly scroll to the target section
+    const targetId = this.getAttribute('href');
+    // Ensure targetId is not just "#" to prevent errors with document.querySelector
+    if (targetId && targetId.length > 1) {
+        const target = document.querySelector(targetId); // Get the target section element
+        if(target) {
+          target.scrollIntoView({ behavior: 'smooth' }); // Smoothly scroll to the target section
+        }
     }
   });
 });
@@ -519,22 +564,27 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => { // Selects all
 //                           HERO SECTION ANIMATION
 // =========================================================================
 
-// Animates the hero text to fade/slide in on page load.
+// Animates the hero text to fade/slide in on  page load.
 window.addEventListener('DOMContentLoaded', () => {
-  const heroText = document.querySelector('#hero .hero-text'); // Get the hero text element
-  if(heroText) {
-    setTimeout(() => {
-      heroText.classList.add('animate-in'); // Add class to trigger CSS animation
-    }, 140); // Small delay for effect
-    // Subtle glowing effect (CSS animation on box-shadow)
-    heroText.animate([
-      { boxShadow: "0 0 0px #3fa3fe44" },
-      { boxShadow: "0 2px 38px #3fa3fe44" },
-      { boxShadow: "0 0 0px #3fa3fe44" },
-    ], {
-      duration: 2800, // Animation duration
-      iterations: 2 // Number of times to repeat
-    });
+  const heroSection = document.getElementById('hero'); // Get the hero section
+  if (heroSection) {
+    const heroText = heroSection.querySelector('.hero-text'); // Get the hero text element within the hero section
+    if(heroText) {
+      setTimeout(() => {
+        heroText.classList.add('animate-in'); // Add class to trigger CSS animation
+      }, 140); // Small delay for effect
+      // Subtle glowing effect (CSS animation on box-shadow)
+      if (typeof heroText.animate === 'function') { // Check if animate method exists
+          heroText.animate([
+            { boxShadow: "0 0 0px #3fa3fe44" },
+            { boxShadow: "0 2px 38px #3fa3fe44" },
+            { boxShadow: "0 0 0px #3fa3fe44" },
+          ], {
+            duration: 2800, // Animation duration
+            iterations: 2 // Number of times to repeat
+          });
+      }
+    }
   }
 });
 
@@ -576,7 +626,7 @@ revealSections.forEach(section => {
 
 // Attach event listeners to run 'revealOnScroll' on page load and on scroll events.
 window.addEventListener('DOMContentLoaded', revealOnScroll);
-window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('scroll', revealOnScroll, { passive: true }); // Added passive for better scroll performance
 
 // =========================================================================
 //                           ABOUT SECTION CARD ANIMATION
@@ -605,7 +655,12 @@ window.addEventListener('scroll', revealOnScroll);
   window.addEventListener('scroll', animateAboutCard, { passive: true });
   window.addEventListener('DOMContentLoaded', animateAboutCard);
   // Fallback/immediate check in case section is already revealed on quick load
-  setTimeout(animateAboutCard, 400);
+  // Ensure this runs after initial section visibility check
+  setTimeout(() => {
+      if (aboutSection.classList.contains('section-visible')) {
+          animateAboutCard();
+      }
+  }, 400);
 })();
 
 // =========================================================================
