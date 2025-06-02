@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Youssef | Cybersecurity & Web/App Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Import Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {}
+    }
+  </script>
+</head>
+<body>
+  <!-- Pro animated background squares (decorative) -->
+  <div class="bg-squares" aria-hidden="true">
+    <div class="bg-square sq1"></div>
+    <div class="bg-square sq2"></div>
+    <div class="bg-square sq3"></div>
+    <div class="bg-square sq4"></div>
+    <div class="bg-square sq5"></div>
+    <div class="bg-square sq6"></div>
+    <div class="bg-square sq7"></div>
+    <div class="bg-square sq8"></div>
+    <div class="bg-square sq9"></div>
+  </div>
+  <header>
+    <div class="header-bg"></div>
+    <div class="container header-flex">
+      <div class="header-main-row">
+        <h1 class="site-title">
+          <span class="title-accent">&lt;/&gt;</span> Youssef
+        </h1>
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn active" data-lang="en" aria-label="Switch language to English">EN</button>
+          <button class="lang-btn" data-lang="fr" aria-label="Switch language to French">FR</button>
+          <button class="lang-btn" data-lang="es" aria-label="Switch language to Spanish">ES</button>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about" data-i18n="nav.about">About Me</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#blogs" data-i18n="nav.blogs">Blogs</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+        <div class="nav-underline"></div>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="container hero-flex">
+      <img src="Light Yagami Icon.jpeg" alt="Profile picture of Youssef" class="profile-img">
+      <div class="hero-text" id="heroTextLang">
+        <h2 data-i18n="hero.greeting">Hi, I'm Youssef!</h2>
+        <p>
+          <strong data-i18n="hero.role1">Cybersecurity Specialist</strong> <span class="dot"></span>
+          <strong data-i18n="hero.role2">Full-stack Web & App Developer</strong>
+          <br>
+          <span style="display:block; margin-top: 8px;" data-i18n="hero.intro">
+            I design, secure, and build digital experiences<br>
+            that are robust, modern, and visually appealing.<br>
+            <span style="color:var(--color-accent-2);font-weight:600;">My passion is creating solutions<br> that are both safe <em>and</em> stunning.</span>
+          </span>
+        </p>
+        <a href="#projects" class="btn" data-i18n="hero.cta">See My Work</a>
+        <div class="socials">
+          <a href="https://github.com/You-ssefX" target="_blank" class="social-btn" aria-label="GitHub" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub">
+          </a>
+          <a href="https://www.linkedin.com/in/youssef-tazi-43186b332/" target="_blank" class="social-btn" aria-label="LinkedIn" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
+          </a>
+          <a href="https://www.instagram.com/xoush_" target="_blank" class="social-btn" aria-label="Instagram" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+          </a>
+          <a href="https://www.tiktok.com/@xoush8" target="_blank" class="social-btn" aria-label="TikTok" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <!-- Pro style blurred color bubbles behind -->
+    <div class="about-blur-bubble about-blur1"></div>
+    <div class="about-blur-bubble about-blur2"></div>
+    <div class="about-blur-bubble about-blur3"></div>
+    <div class="about-blur-bubble about-blur4"></div>
+    <div class="container">
+      <div class="about-card">
+        <span class="about-encrypt-icon">🔒</span>
+        <h2 data-i18n="about.title">About Me</h2>
+        <div class="about-intro" data-i18n="about.intro">
+          Cybersecurity Specialist &amp; Full-stack Web/App Developer 
+        </div>
+        <div class="about-details" data-i18n="about.details">
+          My mission: <span style="color:var(--color-accent);font-weight:600;">building digital experiences that are both robust and beautiful</span>. 
+          I'm devoted to blending <strong>security</strong>, <strong>performance</strong>, and <strong>aesthetics</strong>—from advanced penetration testing, to seamless UI, to scalable back-end architectures.
+        </div>
+        <ul class="about-bullets">
+          <li data-i18n="about.bullet1">Defensive Security &amp; Ethical Hacking</li>
+          <li data-i18n="about.bullet2">Modern Web, Mobile, &amp; Cloud Apps</li>
+          <li data-i18n="about.bullet3">System Hardening &amp; Secure DevOps</li>
+          <li data-i18n="about.bullet4">Passionate about user experience</li>
+        </ul>
+        <div class="about-details" style="margin-top:12px;" data-i18n="about.details2">
+          Off the clock, I love challenging puzzles and exploring the latest tech trends.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <h2 data-i18n="skills.title">Skills</h2>
+      <ul class="skills-list">
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML5 logo" title="HTML5">
+          <span>HTML5</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS3 logo" title="CSS3">
+          <span>CSS3</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" alt="JavaScript logo" title="JavaScript">
+          <span>JavaScript</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP logo" title="PHP">
+          <span>PHP</span>
+        </li>
+        <li>
+          <img src="Mysql.png" alt="MySQL logo" title="MySQL" />
+          <span>MySQL</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo" title="React.js" />
+          <span>React.js</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" alt="Node.js logo" title="Node.js" />
+          <span>Node.js</span>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg" alt="C++ logo" title="C++" />
+          <span>C++</span>
+        </li>
+        <li>
+          <img src="python.png" alt="Python logo" title="Python" />
+          <span>Python</span>
+        </li>
+        <li>
+          <img src="linux.png" alt="Linux logo" title="Linux" />
+          <span>Bash-Scripting</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 data-i18n="projects.title">Projects</h2>
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Projects injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <section id="blogs">
+    <div class="container">
+      <h2 data-i18n="blogs.title">Upcoming Blogs</h2>
+      <div class="blogs-upcoming-list">
+        <div class="blog-upcoming-item">
+          <span class="blog-upcoming-status" data-i18n="blogs.upcoming">Coming soon…</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 data-i18n="contact.title">Contact</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name" data-i18n="contact.name">Name</label>
+          <input type="text" id="name" name="name" required/>
+        </div>
+        <div class="form-group">
+          <label for="email" data-i18n="contact.email">Email</label>
+          <input type="email" id="email" name="email" required/>
+        </div>
+        <div class="form-group">
+          <label for="message" data-i18n="contact.message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn" data-i18n="contact.submit">Send</button>
+        <div id="formMsg"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-flex">
+        <div>
+          <p>©2025 Youssef. All rights reserved.</p>
+          <p style="font-size:0.98em; color:#7be2b2b0; margin-top: 2px;">
+            Designed &amp; built by Youssef · Inspired by modern cybersecurity &amp; creative dev communities
+          </p>
+        </div>
+        <div class="footer-socials">
+             <a href="https://github.com/You-ssefX" target="_blank" class="social-btn" aria-label="GitHub" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub">
+          </a>
+            <a href="https://www.linkedin.com/in/youssef-tazi-43186b332/" target="_blank" class="social-btn" aria-label="LinkedIn" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
+          </a>
+         <a href="https://www.instagram.com/xoush_" target="_blank" class="social-btn" aria-label="Instagram" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+          </a>
+          <a href="https://www.tiktok.com/@xoush8" target="_blank" class="social-btn" aria-label="TikTok" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" type="module"></script>
+  
+</body>
+</html>
